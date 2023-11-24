@@ -1,5 +1,5 @@
-import { GridContent, ProCard, Statistic, StatisticCard } from '@ant-design/pro-components'
-import { Divider, Tooltip, Row, Col, Card } from 'antd'
+import { GridContent, Statistic, StatisticCard } from '@ant-design/pro-components'
+import { Row, Col, Card } from 'antd'
 import { Area, Stock, Facet, Radar } from '@ant-design/plots';
 import { useEffect, useState } from 'react';
 
@@ -104,7 +104,6 @@ const AdsDetail = () => {
             });
     };
     const config2 = {
-        type: 'mirror',
         data: data2,
         fields: ['gender'],
         transpose: true,
@@ -117,16 +116,16 @@ const AdsDetail = () => {
             total_percentage: {
                 sync: true,
 
-                formatter(v) {
+                formatter(v: any) {
                     return v + '%';
                 },
             },
             gender: {
                 sync: true,
             },
-        },
+        } as any,
         axes: {},
-        eachView: (view, f) => {
+        eachView: (_: any, f: any) => {
             return {
                 padding: [0, 48, 0, 0],
                 type: 'column',
@@ -137,83 +136,83 @@ const AdsDetail = () => {
                     seriesField: 'gender',
                     color: ['#1890ff', '#f04864'],
                 },
-            };
+            } as any;
         },
     };
 
     const [data3, setData3] = useState([]);
 
-  useEffect(() => {
-    asyncFetch3();
-  }, []);
+    useEffect(() => {
+        asyncFetch3();
+    }, []);
 
-  const asyncFetch3 = () => {
-    fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
-      .then((response) => response.json())
-      .then((json) => setData3(json))
-      .catch((error) => {
-        console.log('fetch data failed', error);
-      });
-  };
-  const config3 = {
-    data: data3,
-    xField: 'trade_date',
-    yField: ['open', 'close', 'high', 'low'],
-    meta: {
-      vol: {
-        alias: '成交量',
-      },
-      open: {
-        alias: '开盘价',
-      },
-      close: {
-        alias: '收盘价',
-      },
-      high: {
-        alias: '最高价',
-      },
-      low: {
-        alias: '最低价',
-      },
-    },
-    tooltip: {
-      crosshairs: {
-        // 自定义 crosshairs line 样式
-        line: {
-          style: {
-            lineWidth: 0.5,
-            stroke: 'rgba(0,0,0,0.25)',
-          },
-        },
-        text: (type, defaultContent, items) => {
-          let textContent;
-
-          if (type === 'x') {
-            const item = items[0];
-            textContent = item ? item.title : defaultContent;
-          } else {
-            textContent = `${defaultContent.toFixed(2)}`;
-          }
-
-          return {
-            position: type === 'y' ? 'start' : 'end',
-            content: textContent,
-            // 自定义 crosshairs text 样式
-            style: {
-              fill: '#dfdfdf',
+    const asyncFetch3 = () => {
+        fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
+            .then((response) => response.json())
+            .then((json) => setData3(json))
+            .catch((error) => {
+                console.log('fetch data failed', error);
+            });
+    };
+    const config3 = {
+        data: data3,
+        xField: 'trade_date',
+        yField: ['open', 'close', 'high', 'low'] as any,
+        meta: {
+            vol: {
+                alias: '成交量',
             },
-          };
+            open: {
+                alias: '开盘价',
+            },
+            close: {
+                alias: '收盘价',
+            },
+            high: {
+                alias: '最高价',
+            },
+            low: {
+                alias: '最低价',
+            },
         },
-        // 自定义 crosshairs textBackground 样式
-        textBackground: {
-          padding: [4, 8],
-          style: {
-            fill: '#363636',
-          },
+        tooltip: {
+            crosshairs: {
+                // 自定义 crosshairs line 样式
+                line: {
+                    style: {
+                        lineWidth: 0.5,
+                        stroke: 'rgba(0,0,0,0.25)',
+                    },
+                },
+                text: (type: any, defaultContent: any, items: any) => {
+                    let textContent;
+
+                    if (type === 'x') {
+                        const item = items[0];
+                        textContent = item ? item.title : defaultContent;
+                    } else {
+                        textContent = `${defaultContent.toFixed(2)}`;
+                    }
+
+                    return {
+                        position: type === 'y' ? 'start' : 'end',
+                        content: textContent,
+                        // 自定义 crosshairs text 样式
+                        style: {
+                            fill: '#dfdfdf',
+                        },
+                    };
+                },
+                // 自定义 crosshairs textBackground 样式
+                textBackground: {
+                    padding: [4, 8],
+                    style: {
+                        fill: '#363636',
+                    },
+                },
+            },
         },
-      },
-    },
-  };
+    };
 
 
     return (
@@ -253,12 +252,12 @@ const AdsDetail = () => {
             <Row gutter={12} style={{ margin: 0 }}>
                 <Col xl={14} lg={24} md={24} sm={24} xs={24} className='pb-4'>
                     <Card title="Việc bán hàng">
-                    <Stock {...config3} />
+                        <Stock {...config3} />
                     </Card>
                 </Col>
                 <Col xl={10} lg={24} md={24} sm={24} xs={24} className='pb-4'>
                     <Card title="Tỷ lệ danh mục bán hàng">
-                        <Facet {...config2} />
+                        <Facet type='mirror' {...config2} />
                     </Card>
                 </Col>
             </Row>

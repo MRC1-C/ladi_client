@@ -1,21 +1,21 @@
 import {
-    CaretDownFilled,
-    DoubleRightOutlined,
-    GithubFilled,
-    InfoCircleFilled,
-    LogoutOutlined,
-    PlusCircleFilled,
-    QuestionCircleFilled,
-    SearchOutlined,
-  } from '@ant-design/icons';
+  CaretDownFilled,
+  DoubleRightOutlined,
+  GithubFilled,
+  InfoCircleFilled,
+  LogoutOutlined,
+  PlusCircleFilled,
+  QuestionCircleFilled,
+  SearchOutlined,
+} from '@ant-design/icons';
 import type { ProSettings } from '@ant-design/pro-components';
 import {
-  PageContainer,
   ProConfigProvider,
   ProLayout,
   SettingDrawer,
 } from '@ant-design/pro-components';
 import { css } from '@emotion/css';
+import { StyleProvider } from '@ant-design/cssinjs';
 import {
   ConfigProvider,
   Divider,
@@ -29,11 +29,13 @@ import router from '../routes/privateRouter'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { pathnameState } from '../stores/app/atoms';
-  const Item: React.FC<{ children: React.ReactNode }> = (props) => {
-    const { token } = theme.useToken();
-    return (
-      <div
-        className={css`
+import './index.css'
+
+const Item: React.FC<{ children: React.ReactNode }> = (props) => {
+  const { token } = theme.useToken();
+  return (
+    <div
+      className={css`
           color: ${token.colorTextSecondary};
           font-size: 14px;
           cursor: pointer;
@@ -43,114 +45,114 @@ import { pathnameState } from '../stores/app/atoms';
             color: ${token.colorPrimary};
           }
         `}
+      style={{
+        width: '33.33%',
+      }}
+    >
+      {props.children}
+      <DoubleRightOutlined
         style={{
-          width: '33.33%',
+          marginInlineStart: 4,
         }}
-      >
-        {props.children}
-        <DoubleRightOutlined
-          style={{
-            marginInlineStart: 4,
-          }}
-        />
-      </div>
-    );
-  };
-  
-  const List: React.FC<{ title: string; style?: React.CSSProperties }> = (
-    props,
-  ) => {
-    const { token } = theme.useToken();
-  
-    return (
+      />
+    </div>
+  );
+};
+
+const List: React.FC<{ title: string; style?: React.CSSProperties }> = (
+  props,
+) => {
+  const { token } = theme.useToken();
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        ...props.style,
+      }}
+    >
       <div
         style={{
-          width: '100%',
-          ...props.style,
+          fontSize: 16,
+          color: token.colorTextHeading,
+          lineHeight: '24px',
+          fontWeight: 500,
+          marginBlockEnd: 16,
         }}
       >
-        <div
-          style={{
-            fontSize: 16,
-            color: token.colorTextHeading,
-            lineHeight: '24px',
-            fontWeight: 500,
-            marginBlockEnd: 16,
-          }}
-        >
-          {props.title}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-          }}
-        >
-          {new Array(6).fill(1).map((_, index) => {
-            return <Item key={index}>具体的解决方案-{index}</Item>;
-          })}
-        </div>
+        {props.title}
       </div>
-    );
-  };
-  
-  const MenuCard = () => {
-    const { token } = theme.useToken();
-    return (
       <div
         style={{
           display: 'flex',
-          alignItems: 'center',
+          flexWrap: 'wrap',
         }}
       >
-        <Divider
-          style={{
-            height: '1.5em',
-          }}
-          type="vertical"
-        />
-        <Popover
-          placement="bottom"
-          overlayStyle={{
-            width: 'calc(100vw - 24px)',
-            padding: '24px',
-            paddingTop: 8,
-            height: '307px',
-            borderRadius: '0 0 6px 6px',
-          }}
-          content={
-            <div style={{ display: 'flex', padding: '32px 40px' }}>
-              <div style={{ flex: 1 }}>
-                <List title="金融解决方案" />
-                <List
-                  title="其他解决方案"
-                  style={{
-                    marginBlockStart: 32,
-                  }}
-                />
-              </div>
-  
-              <div
+        {new Array(6).fill(1).map((_, index) => {
+          return <Item key={index}>具体的解决方案-{index}</Item>;
+        })}
+      </div>
+    </div>
+  );
+};
+
+const MenuCard = () => {
+  const { token } = theme.useToken();
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <Divider
+        style={{
+          height: '1.5em',
+        }}
+        type="vertical"
+      />
+      <Popover
+        placement="bottom"
+        overlayStyle={{
+          width: 'calc(100vw - 24px)',
+          padding: '24px',
+          paddingTop: 8,
+          height: '307px',
+          borderRadius: '0 0 6px 6px',
+        }}
+        content={
+          <div style={{ display: 'flex', padding: '32px 40px' }}>
+            <div style={{ flex: 1 }}>
+              <List title="金融解决方案" />
+              <List
+                title="其他解决方案"
                 style={{
-                  width: '308px',
-                  borderInlineStart: '1px solid ' + token.colorBorder,
-                  paddingInlineStart: 16,
+                  marginBlockStart: 32,
                 }}
-              >
-                <div
-                  className={css`
+              />
+            </div>
+
+            <div
+              style={{
+                width: '308px',
+                borderInlineStart: '1px solid ' + token.colorBorder,
+                paddingInlineStart: 16,
+              }}
+            >
+              <div
+                className={css`
                     font-size: 14px;
                     color: ${token.colorText};
                     line-height: 22px;
                   `}
-                >
-                  热门产品
-                </div>
-                {new Array(3).fill(1).map((_, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={css`
+              >
+                热门产品
+              </div>
+              {new Array(3).fill(1).map((_, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={css`
                         border-radius: 4px;
                         padding: 16px;
                         margin-top: 4px;
@@ -160,139 +162,140 @@ import { pathnameState } from '../stores/app/atoms';
                           background-color: ${token.colorBgTextHover};
                         }
                       `}
+                  >
+                    <img src="https://gw.alipayobjects.com/zos/antfincdn/6FTGmLLmN/bianzu%25252013.svg" />
+                    <div
+                      style={{
+                        marginInlineStart: 14,
+                      }}
                     >
-                      <img src="https://gw.alipayobjects.com/zos/antfincdn/6FTGmLLmN/bianzu%25252013.svg" />
                       <div
-                        style={{
-                          marginInlineStart: 14,
-                        }}
-                      >
-                        <div
-                          className={css`
+                        className={css`
                             font-size: 14px;
                             color: ${token.colorText};
                             line-height: 22px;
                           `}
-                        >
-                          Ant Design
-                        </div>
-                        <div
-                          className={css`
+                      >
+                        Ant Design
+                      </div>
+                      <div
+                        className={css`
                             font-size: 12px;
                             color: ${token.colorTextSecondary};
                             line-height: 20px;
                           `}
-                        >
-                          杭州市较知名的 UI 设计语言
-                        </div>
+                      >
+                        杭州市较知名的 UI 设计语言
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
-          }
-        >
-          <div
-            style={{
-              color: token.colorTextHeading,
-              fontWeight: 500,
-              cursor: 'pointer',
-              display: 'flex',
-              gap: 4,
-              paddingInlineStart: 8,
-              paddingInlineEnd: 12,
-              alignItems: 'center',
-            }}
-            className={css`
+          </div>
+        }
+      >
+        <div
+          style={{
+            color: token.colorTextHeading,
+            fontWeight: 500,
+            cursor: 'pointer',
+            display: 'flex',
+            gap: 4,
+            paddingInlineStart: 8,
+            paddingInlineEnd: 12,
+            alignItems: 'center',
+          }}
+          className={css`
               &:hover {
                 background-color: ${token.colorBgTextHover};
               }
             `}
-          >
-            <span> 企业级资产中心</span>
-            <CaretDownFilled />
-          </div>
-        </Popover>
-      </div>
-    );
-  };
-  
-  const SearchInput = () => {
-    const { token } = theme.useToken();
-    return (
-      <div
-        key="SearchOutlined"
-        aria-hidden
+        >
+          <span> 企业级资产中心</span>
+          <CaretDownFilled />
+        </div>
+      </Popover>
+    </div>
+  );
+};
+
+const SearchInput = () => {
+  const { token } = theme.useToken();
+  return (
+    <div
+      key="SearchOutlined"
+      aria-hidden
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        marginInlineEnd: 24,
+      }}
+      onMouseDown={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+      }}
+    >
+      <Input
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          marginInlineEnd: 24,
+          borderRadius: 4,
+          marginInlineEnd: 12,
+          backgroundColor: token.colorBgTextHover,
         }}
-        onMouseDown={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-        }}
-      >
-        <Input
-          style={{
-            borderRadius: 4,
-            marginInlineEnd: 12,
-            backgroundColor: token.colorBgTextHover,
-          }}
-          prefix={
-            <SearchOutlined
-              style={{
-                color: token.colorTextLightSolid,
-              }}
-            />
-          }
-          placeholder="搜索方案"
-          bordered={false}
-        />
-        <PlusCircleFilled
-          style={{
-            color: token.colorPrimary,
-            fontSize: 24,
-          }}
-        />
-      </div>
-    );
-  };
-  
-  const BaseLayout = () => {
-    const navigate = useNavigate();
-    const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
-        "fixSiderbar": true,
-        "layout": "mix",
-        "splitMenus": false,
-        "navTheme": "realDark",
-        "contentWidth": "Fluid",
-        "colorPrimary": "#722ED1",
-        "siderMenuType": "sub"
-    });
-  
-    const [pathname, setPathname] = useRecoilState(pathnameState);
-    const [collapsed, setCollapsed] = useState(false);
-    useEffect(()=>{
-      setTimeout(()=>{
-        setCollapsed(true)
-      },1500)
-    },[])
-    return (
-      <div
-        id="ladi"
-        style={{
-          height: '100vh',
-          overflow: 'auto',
-        }}
-      >
-        <ProConfigProvider hashed={false}>
-          <ConfigProvider
-            getTargetContainer={() => {
-              return document.getElementById('ladi') || document.body;
+        prefix={
+          <SearchOutlined
+            style={{
+              color: token.colorTextLightSolid,
             }}
-          >
+          />
+        }
+        placeholder="搜索方案"
+        bordered={false}
+      />
+      <PlusCircleFilled
+        style={{
+          color: token.colorPrimary,
+          fontSize: 24,
+        }}
+      />
+    </div>
+  );
+};
+
+const BaseLayout = () => {
+  const navigate = useNavigate();
+  const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
+    "fixSiderbar": true,
+    "layout": "mix",
+    "splitMenus": false,
+    "navTheme": "light",
+    "contentWidth": "Fluid",
+    "colorPrimary": "#722ED1",
+    "siderMenuType": "sub"
+  });
+
+  const [pathname, setPathname] = useRecoilState(pathnameState);
+  const [collapsed, setCollapsed] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setCollapsed(true)
+    }, 1500)
+  }, [])
+  return (
+    <div
+      id="ladi"
+      style={{
+        height: '100vh',
+        overflow: 'auto',
+      }}
+    >
+      <ProConfigProvider hashed={false}>
+        <ConfigProvider
+          getTargetContainer={() => {
+            return document.getElementById('ladi') || document.body;
+          }}
+        >
+          <StyleProvider hashPriority="high">
             <ProLayout
               prefixCls="my-prefix"
               title="Ladi"
@@ -318,6 +321,7 @@ import { pathnameState } from '../stores/app/atoms';
                   width: '331px',
                 },
               ]}
+              logo="https://lh3.googleusercontent.com/a/ACg8ocJ1M5cvaqAFR3JLfrNt0sVxtoEtPFGQZV2t1iO1u1JzGQ=s360-c-no"
               {...router}
               location={{
                 pathname,
@@ -355,7 +359,7 @@ import { pathnameState } from '../stores/app/atoms';
                   );
                 },
               }}
-              onPageChange={location => navigate(''+location?.pathname)}
+              onPageChange={location => navigate('' + location?.pathname)}
               actionsRender={(props) => {
                 if (props.isMobile) return [];
                 if (typeof window === 'undefined') return [];
@@ -414,10 +418,8 @@ import { pathnameState } from '../stores/app/atoms';
               {...settings}
             >
               <div className='h-[calc(100vh-56px)] overflow-y-auto'>
-                <Outlet/>
+                <Outlet />
               </div>
-              {/* <PageContainer className='pt-2 h-[calc(100vh-56px)] overflow-y-auto' token={{paddingInlinePageContainerContent: 4}} pageHeaderRender={()=><></>}>
-              </PageContainer> */}
               <SettingDrawer
                 pathname={pathname}
                 enableDarkTheme
@@ -432,10 +434,11 @@ import { pathnameState } from '../stores/app/atoms';
                 disableUrlParams={false}
               />
             </ProLayout>
-          </ConfigProvider>
-        </ProConfigProvider>
-      </div>
-    );
-  };
-  
-  export default BaseLayout
+          </StyleProvider>
+        </ConfigProvider>
+      </ProConfigProvider>
+    </div>
+  );
+};
+
+export default BaseLayout

@@ -72,7 +72,7 @@ const Roles = () => {
           },
         },
         actions: {
-          render: (text, row, index, action) => [
+          render: (_, row:any, __, action:any) => [
             <a
               onClick={() => {
                 action?.startEditable(row.id);

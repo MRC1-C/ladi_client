@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Tree, Button } from 'antd';
 import routes from '../../routes/privateRouter'
 
@@ -8,8 +8,8 @@ const PermissionManagement = () => {
     const [expandedKeys, setExpandedKeys] = useState([]);
     const [checkedKeys, setCheckedKeys] = useState([]);
 
-    const generateTreeNodes = (routes, parentPath = '') => {
-        return routes.map((route) => {
+    const generateTreeNodes = (routes: any, parentPath = '') => {
+        return routes.map((route: any) => {
             const currentPath = parentPath ? `${parentPath}/${route.path}` : route.path;
 
             if (route.routes) {
@@ -31,21 +31,21 @@ const PermissionManagement = () => {
         });
     };
 
-    const onExpand = (expandedKeysValue) => {
+    const onExpand = (expandedKeysValue: any) => {
         setExpandedKeys(expandedKeysValue);
     };
 
-    const onCheck = (checkedKeysValue) => {
+    const onCheck = (checkedKeysValue: any) => {
         setCheckedKeys(checkedKeysValue);
     };
 
     const handleSavePermissions = () => {
-        const createTreeFromPaths = (paths) => {
+        const createTreeFromPaths = (paths: any) => {
             const tree = {};
-            paths.forEach((path) => {
+            paths.forEach((path: any) => {
                 const pathParts = path.path.split('/');
-                let currentNode = tree;
-                pathParts.forEach((part, index) => {
+                let currentNode = tree as any;
+                pathParts.forEach((part: any, index: any) => {
                     currentNode[part] = currentNode[part] || {};
                     currentNode = currentNode[part];
                     if (index === pathParts.length - 1) {
@@ -56,14 +56,14 @@ const PermissionManagement = () => {
             return tree;
         };
 
-        const mapTreeToRoutes = (tree, routes) => {
+        const mapTreeToRoutes = (tree: any, routes: any) => {
             return Object.keys(tree).map((key) => {
-                const route = routes.find((r) => r.path === key);
+                const route = routes.find((r: any) => r.path === key);
                 if (route) {
-                    if(route?.routes){
+                    if (route?.routes) {
                         route.routes = mapTreeToRoutes(tree[key], route.routes);
                     }
-                    else{
+                    else {
                         route.canAccess = tree[key].permissions
                         return route
                     }
@@ -72,7 +72,7 @@ const PermissionManagement = () => {
             }).filter(Boolean);
         };
 
-        const r = checkedKeys.filter((key) => key.includes('*')).reduce((result, key) => {
+        const r = checkedKeys.filter((key:any) => key.includes('*')).reduce((result:any, key:any) => {
             const [path, permission] = key.split('*');
             if (!result[path]) {
                 result[path] = {
@@ -87,9 +87,9 @@ const PermissionManagement = () => {
         }, {});
         const tree = createTreeFromPaths(Object.values(r));
         console.log(tree)
-        const mappedRoutes = mapTreeToRoutes(tree, routes.route.routes);
-        console.log(checkedKeys.filter((key) => key.includes('*')))
-          
+        // const mappedRoutes = mapTreeToRoutes(tree, routes.route.routes);
+        console.log(checkedKeys.filter((key:any) => key.includes('*')))
+
     };
 
     return (
@@ -103,7 +103,7 @@ const PermissionManagement = () => {
                 checkedKeys={checkedKeys}
             >
                 <TreeNode key={''} title="Quyền truy cập">
-                {generateTreeNodes(routes.route.routes)}
+                    {generateTreeNodes(routes.route.routes)}
                 </TreeNode>
             </Tree>
             <Button type="primary" onClick={handleSavePermissions}>

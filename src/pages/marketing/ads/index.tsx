@@ -1,11 +1,8 @@
 import {
-    GridContent,
     ProList,
 } from '@ant-design/pro-components';
-import { Progress, Tag } from 'antd';
+import { Tag } from 'antd';
 import { RingProgress } from '@ant-design/plots';
-
-import ModalComponent from '../../../components/modal';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -74,7 +71,7 @@ const Ads = () => {
                 }}
                 toolBarRender={() => {
                     return [
-                        <ModalComponent />
+                        // <ModalComponent children={<></>}/>
                     ];
                 }}
                 search={{

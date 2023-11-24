@@ -1,12 +1,10 @@
-import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProFormInstance } from '@ant-design/pro-components';
 import {
     EditableProTable,
     ProCard,
-    ProFormField,
 } from '@ant-design/pro-components';
 import type { InputRef } from 'antd';
-import { Button, Form, Input, Space, Tag, Row, Col } from 'antd';
+import { Form, Input, Space, Tag, Row, Col } from 'antd';
 import React, { useRef, useState } from 'react';
 
 const waitTime = (time: number = 100) => {
@@ -201,7 +199,7 @@ const Users = () => {
             title: 'Hành động',
             valueType: 'option',
             width: 250,
-            render: (text, record, _, action) => [
+            render: (__, record, _, action) => [
                 <a
                     key="editable"
                     onClick={() => {
@@ -275,7 +273,7 @@ const Users = () => {
                             saveText: 'Lưu',
                             cancelText: 'Huỷ',
                             onChange: setEditableRowKeys,
-                            actionRender: (row, config, dom) => [dom.save, dom.cancel, dom.delete],
+                            actionRender: (__, _, dom) => [dom.save, dom.cancel, dom.delete],
                         }}
                     />
                 </ProCard>
