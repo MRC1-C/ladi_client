@@ -27,6 +27,7 @@ import Users from '../pages/users/users';
 import { Ads, AdsDetail } from '../pages/marketing';
 import { ListOrder } from '../pages/sale';
 import Primary from '../pages/marketing/landingpage';
+import TaskOrder from '../pages/sale/task-order';
 export default {
   route: {
     path: '',
@@ -120,6 +121,12 @@ export default {
             name: 'ListOrder',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <ListOrder />
+          },
+          {
+            path: 'task-order',
+            name: 'TaskOrder',
+            icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
+            component: <TaskOrder />
           },
         ],
       },
