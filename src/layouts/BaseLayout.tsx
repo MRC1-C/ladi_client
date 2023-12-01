@@ -8,11 +8,9 @@ import {
   QuestionCircleFilled,
   SearchOutlined,
 } from '@ant-design/icons';
-import type { ProSettings } from '@ant-design/pro-components';
 import {
   ProConfigProvider,
   ProLayout,
-  SettingDrawer,
 } from '@ant-design/pro-components';
 import { css } from '@emotion/css';
 import { StyleProvider } from '@ant-design/cssinjs';
@@ -28,7 +26,7 @@ import React, { useEffect, useState } from 'react';
 import router from '../routes/privateRouter'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { pathnameState } from '../stores/app/atoms';
+import { pathnameState, settingState } from '../stores/app/atoms';
 import './index.css'
 
 const Item: React.FC<{ children: React.ReactNode }> = (props) => {
@@ -264,23 +262,17 @@ const SearchInput = () => {
 
 const BaseLayout = () => {
   const navigate = useNavigate();
-  const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
-    "fixSiderbar": true,
-    "layout": "mix",
-    "splitMenus": false,
-    "navTheme": "light",
-    "contentWidth": "Fluid",
-    "colorPrimary": "#722ED1",
-    "siderMenuType": "sub"
-  });
-
+  const [settings, setSetting] = useRecoilState(settingState);
   const [pathname, setPathname] = useRecoilState(pathnameState);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       setCollapsed(true)
     }, 1500)
   }, [])
+  useEffect(() => {
+    localStorage.setItem('settings', JSON.stringify(settings));
+  }, [settings]);
   return (
     <div
       id="ladi"
@@ -333,7 +325,6 @@ const BaseLayout = () => {
                 sider: {
                 }
               }}
-              siderMenuType="group"
               menu={{
                 collapsedShowGroupTitle: true,
               }}
@@ -351,6 +342,12 @@ const BaseLayout = () => {
                             icon: <LogoutOutlined />,
                             label: '退出登录',
                           },
+                          {
+                            key: 'setting',
+                            icon: <div className='w-full cursor-pointer' onClick={() => setSetting(prev => ({ ...prev, navTheme: prev?.navTheme == 'realDark' ? 'light' : 'realDark' }))}>
+                              <img className='w-6 mx-auto' src={settings?.navTheme == 'realDark' ? 'https://static-00.iconduck.com/assets.00/mode-light-icon-512x512-yuubs6qt.png' : 'https://cdn-icons-png.flaticon.com/512/6771/6771009.png'} />
+                            </div>
+                          }
                         ],
                       }}
                     >
@@ -420,19 +417,6 @@ const BaseLayout = () => {
               <div className='h-[calc(100vh-56px)] overflow-y-auto'>
                 <Outlet />
               </div>
-              <SettingDrawer
-                pathname={pathname}
-                enableDarkTheme
-                getContainer={(e: unknown) => {
-                  if (typeof window === 'undefined') return e;
-                  return document.getElementById('ladi');
-                }}
-                settings={settings}
-                onSettingChange={(changeSetting) => {
-                  setSetting(changeSetting);
-                }}
-                disableUrlParams={false}
-              />
             </ProLayout>
           </StyleProvider>
         </ConfigProvider>
