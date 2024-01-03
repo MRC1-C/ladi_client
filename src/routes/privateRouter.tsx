@@ -1,5 +1,5 @@
 import {
-  CrownFilled, PieChartFilled, NotificationFilled, ContactsFilled, MobileFilled
+  CrownFilled, PieChartFilled, NotificationFilled, ContactsFilled, MobileFilled, WechatOutlined
 } from '@ant-design/icons';
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
@@ -28,6 +28,8 @@ import { Ads, AdsDetail } from '../pages/marketing';
 import { ListOrder } from '../pages/sale';
 import Primary from '../pages/marketing/landingpage';
 import TaskOrder from '../pages/sale/task-order';
+import Chat from '../pages/chat/chat';
+import User from '../pages/chat/user';
 export default {
   route: {
     path: '',
@@ -127,6 +129,30 @@ export default {
             name: 'TaskOrder',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <TaskOrder />
+          },
+        ],
+      },
+      {
+        path: 'chat',
+        name: 'chat',
+        icon: <WechatOutlined />,
+        component: <Outlet />,
+        routes: [
+          {
+            path: '',
+            component: <SwitchIndex path='chat' />
+          },
+          {
+            path: 'chat',
+            name: 'Chat',
+            icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
+            component: <Chat />
+          },
+          {
+            path: 'user',
+            name: 'User',
+            icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
+            component: <User />
           },
         ],
       },
