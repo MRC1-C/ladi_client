@@ -1,15 +1,15 @@
 import { Avatar } from 'antd'
-import React from 'react'
+import { formatDistanceToNow } from 'date-fns';
+import { vi } from 'date-fns/locale';
+
 
 const MessengerItem = (props: any) => {
     return (
-        <div className={`w-full flex ${props.me ? "justify-end" : 'justify-start'}`}>
-            <div className={`flex gap-3 ${props.me ? "self-start" : "self-end"}`}>
-                <Avatar src='https://media-cdn-v2.laodong.vn/storage/newsportal/2023/7/25/1220914/Rose.jpg'/>
-                <div className="max-w-2/3 p-2 bg-purple-500 text-white rounded-xl shadow-lg">
-                    <p className="mb-2">{props.mess}</p>
-                    <span className="text-xs text-gray-300">12:34 PM</span>
-                </div>
+        <div className={`w-full p-3 flex gap-3 ${props.me ? "flex-row-reverse" : 'flex-row'}`}>
+            <Avatar src='https://media-cdn-v2.laodong.vn/storage/newsportal/2023/7/25/1220914/Rose.jpg' />
+            <div className={`max-w-[60%] p-2 ${!props.me?"bg-purple-500 text-white ":"bg-white text-black"} rounded-xl shadow-xl`}>
+                <p className="mb-2">{props.mess}</p>
+                <span className="text-xs text-gray-300">{formatDistanceToNow(new Date(props.createdAt), { addSuffix: true, locale: vi })}</span>
             </div>
         </div>
     )

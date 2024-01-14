@@ -3,7 +3,6 @@ import {  ProTable } from '@ant-design/pro-components';
 import { Space, Tag } from 'antd';
 import { useRef } from 'react';
 import request from 'umi-request';
-import DrawerComponent from '../../../components/drawer';
 
 type GithubIssueItem = {
     url: string;
@@ -112,7 +111,7 @@ const columns: ProColumns<GithubIssueItem>[] = [
         valueType: 'option',
         key: 'option',
         render: () => [
-            <DrawerComponent />
+            // <DrawerComponent />
         ],
     },
 ];

@@ -15,13 +15,12 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-30 bg-white-500 transition-all ${
-          scrollActive ? "shadow-md pt-0" : "pt-4"
-        }`}        
+        className={`fixed top-0 w-full z-30 bg-white-500 transition-all ${scrollActive ? "shadow-md pt-0" : "pt-4"
+          }`}
       >
         <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
           <div className="col-start-1 col-end-2 flex items-center">
-            <img src="https://lh3.googleusercontent.com/a/ACg8ocJ1M5cvaqAFR3JLfrNt0sVxtoEtPFGQZV2t1iO1u1JzGQ=s360-c-no" className="h-8 w-auto cursor-pointer" onClick={()=>navigate('introduction')}/>
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocJ1M5cvaqAFR3JLfrNt0sVxtoEtPFGQZV2t1iO1u1JzGQ=s360-c-no" className="h-8 w-auto cursor-pointer" onClick={() => navigate('/')} />
           </div>
           <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
             <LinkScroll
@@ -33,9 +32,8 @@ const Header = () => {
               onSetActive={() => {
                 setActiveLink("about");
               }}
-              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${
-                activeLink === "about" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
-              }`}
+              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${activeLink === "about" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
+                }`}
             >
               About
             </LinkScroll>
@@ -48,9 +46,8 @@ const Header = () => {
               onSetActive={() => {
                 setActiveLink("feature");
               }}
-              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${
-                activeLink === "feature" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
-              }`}
+              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${activeLink === "feature" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
+                }`}
             >
               Feature
             </LinkScroll>
@@ -63,10 +60,9 @@ const Header = () => {
               onSetActive={() => {
                 setActiveLink("pricing");
               }}
-              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${
-                activeLink === "pricing" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
-              }`}
-              
+              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${activeLink === "pricing" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
+                }`}
+
             >
               Pricing
             </LinkScroll>
@@ -79,9 +75,8 @@ const Header = () => {
               onSetActive={() => {
                 setActiveLink("testimoni");
               }}
-              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${
-                activeLink === "testimoni" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
-              }`}
+              className={`px-4 py-2 cursor-pointer animation-hover inline-block relative ${activeLink === "testimoni" ? "text-purple-500 animation-active" : "text-black-500 hover:text-purple-500"
+                }`}
             >
               Testimonial
             </LinkScroll>
@@ -92,7 +87,9 @@ const Header = () => {
                 Sign In
               </p>
             </Link>
-            <ButtonOutline>Sign Up</ButtonOutline>
+            <Link to="/signup">
+              <ButtonOutline>Sign Up</ButtonOutline>
+            </Link>
           </div>
         </nav>
       </header>

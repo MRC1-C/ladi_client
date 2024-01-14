@@ -1,11 +1,8 @@
 import {
   CaretDownFilled,
   DoubleRightOutlined,
-  GithubFilled,
-  InfoCircleFilled,
   LogoutOutlined,
   PlusCircleFilled,
-  QuestionCircleFilled,
   SearchOutlined,
 } from '@ant-design/icons';
 import {
@@ -20,14 +17,15 @@ import {
   Dropdown,
   Input,
   Popover,
+  Skeleton,
   theme,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import router from '../routes/privateRouter'
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { pathnameState, settingState } from '../stores/app/atoms';
-import './index.css'
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { conversationsState, pathnameState, settingState } from '../stores/app/atoms';
+import { gql, useQuery, useSubscription } from '@apollo/client';
 
 const Item: React.FC<{ children: React.ReactNode }> = (props) => {
   const { token } = theme.useToken();
@@ -260,11 +258,53 @@ const SearchInput = () => {
   );
 };
 
+const GET_ME = gql`
+    query Me {
+      me {
+        username
+        id
+      }
+    }
+`;
+
+const REALTIME = gql`
+  subscription Subscription($userId: String!) {
+    messageAdded(userId: $userId) {
+      text
+      client {
+        id
+        name
+      }
+      Conversations {
+        id
+      }
+      createdAt
+    }
+  }
+`
+
 const BaseLayout = () => {
   const navigate = useNavigate();
+  const { loading, error, data } = useQuery(GET_ME);
   const [settings, setSetting] = useRecoilState(settingState);
   const [pathname, setPathname] = useRecoilState(pathnameState);
+  const setconversations = useSetRecoilState(conversationsState);
   const [collapsed, setCollapsed] = useState(true);
+  const {loading: loading1, error: err1, data: data1 } = useSubscription(REALTIME, {
+    variables: {
+      userId: data?.me?.id
+    }
+  })
+  useEffect(() => {
+    if (err1) {
+      console.error('Error in subscription:', err1);
+    }
+
+    if (!loading1 && data1) {
+      setconversations((prev) => [...prev, data1.messageAdded]);
+    }
+  }, [loading1, err1, data1]);
+
   useEffect(() => {
     setTimeout(() => {
       setCollapsed(true)
@@ -273,9 +313,16 @@ const BaseLayout = () => {
   useEffect(() => {
     localStorage.setItem('settings', JSON.stringify(settings));
   }, [settings]);
+  if (loading) {
+    return <Skeleton />
+  }
+  if (error) {
+    navigate('/')
+    return
+  }
   return (
     <div
-      id="ladi"
+      id="penci"
       style={{
         height: '100vh',
         overflow: 'auto',
@@ -284,13 +331,13 @@ const BaseLayout = () => {
       <ProConfigProvider hashed={false}>
         <ConfigProvider
           getTargetContainer={() => {
-            return document.getElementById('ladi') || document.body;
+            return document.getElementById('penci') || document.body;
           }}
         >
           <StyleProvider hashPriority="high">
             <ProLayout
               prefixCls="my-prefix"
-              title="Ladi"
+              title="Penci"
               collapsed={collapsed}
               onCollapse={setCollapsed}
               bgLayoutImgList={[
@@ -331,7 +378,7 @@ const BaseLayout = () => {
               avatarProps={{
                 src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                 size: 'small',
-                title: 'CJ',
+                title: data.me.username,
                 render: (_, dom) => {
                   return (
                     <Dropdown
@@ -340,13 +387,11 @@ const BaseLayout = () => {
                           {
                             key: 'logout',
                             icon: <LogoutOutlined />,
-                            label: '退出登录',
-                          },
-                          {
-                            key: 'setting',
-                            icon: <div className='w-full cursor-pointer' onClick={() => setSetting(prev => ({ ...prev, navTheme: prev?.navTheme == 'realDark' ? 'light' : 'realDark' }))}>
-                              <img className='w-6 mx-auto' src={settings?.navTheme == 'realDark' ? 'https://static-00.iconduck.com/assets.00/mode-light-icon-512x512-yuubs6qt.png' : 'https://cdn-icons-png.flaticon.com/512/6771/6771009.png'} />
-                            </div>
+                            label: "Đăng xuất",
+                            onClick: () => {
+                              localStorage.removeItem('accessToken');
+                              navigate('/')
+                             }
                           }
                         ],
                       }}
@@ -364,9 +409,9 @@ const BaseLayout = () => {
                   props.layout !== 'side' && document.body.clientWidth > 1400 ? (
                     <SearchInput />
                   ) : undefined,
-                  <InfoCircleFilled key="InfoCircleFilled" />,
-                  <QuestionCircleFilled key="QuestionCircleFilled" />,
-                  <GithubFilled key="GithubFilled" />,
+                  <div className='w-full cursor-pointer' onClick={() => setSetting(prev => ({ ...prev, navTheme: prev?.navTheme == 'realDark' ? 'light' : 'realDark' }))}>
+                    <img className='w-6 mx-auto' src={settings?.navTheme == 'realDark' ? 'https://static-00.iconduck.com/assets.00/mode-light-icon-512x512-yuubs6qt.png' : 'https://cdn-icons-png.flaticon.com/512/6771/6771009.png'} />
+                  </div>
                 ];
               }}
               headerTitleRender={(logo, title, _) => {
@@ -402,7 +447,6 @@ const BaseLayout = () => {
                   </div>
                 );
               }}
-              // onMenuHeaderClick={(e) => console.log(e)}
               menuItemRender={(item, dom) => (
                 <div
                   onClick={() => {

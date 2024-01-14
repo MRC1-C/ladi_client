@@ -35,28 +35,24 @@ const Hero = ({
           variants={scrollAnimation}>
           <div className=" flex flex-col justify-center items-start row-start-2 sm:row-start-1">
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 leading-normal">
-              Want anything to be easy with <strong>Ladi</strong>.
+              Want anything to be easy with <strong>Penci</strong>.
             </h1>
             <p className="text-black-500 mt-4 mb-6">
               Provide a network for all your needs with ease and fun using
-              Ladi discover interesting features from us.
+              Penci discover interesting features from us.
             </p>
             <button
               className={
-                "py-3 lg:py-4 px-12 lg:px-16 text-white-500 font-semibold rounded-lg bg-purple-500 hover:shadow-purple-md transition-all outline-none "
+                "py-3 text-white lg:py-4 px-12 lg:px-16 text-white-500 font-semibold rounded-lg bg-purple-500 hover:shadow-purple-md transition-all outline-none "
               }
             >Get Started</button>
           </div>
           <div className="flex w-full">
             <motion.div className="h-full w-full" variants={scrollAnimation}>
               <img
-                src="https://png.pngtree.com/png-clipart/20231016/original/pngtree-3d-illustration-size-in-logistic-png-image_13325469.png"
+                src="https://png.pngtree.com/png-clipart/20230824/original/pngtree-smartphone-laptop-chatbot-messenger-picture-image_8370417.png"
                 alt="VPN Illustrasi"
                 className="w-full"
-                // quality={100}
-                // width={612}
-                // height={383}
-                // layout="responsive"
               />
             </motion.div>
           </div>
