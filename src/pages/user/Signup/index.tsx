@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client";
-import { message } from "antd";
+import { Button, message } from "antd";
 import { useNavigate } from "react-router-dom"
 import { SIGN_UP } from "./gql";
 
 export default function SignUp() {
     const navigate = useNavigate()
-    const [signupMutation] = useMutation(SIGN_UP);
+    const [signupMutation, { loading }] = useMutation(SIGN_UP);
 
 
     const onSignUp = async (e: any) => {
@@ -24,7 +24,7 @@ export default function SignUp() {
                 const res = await signupMutation({
                     variables: { signupInput: { username, password } },
                 });
-                if(res.data.signup.error){
+                if (res.data.signup.error) {
                     message.warning(res.data.signup.error)
                 }
                 localStorage.setItem('accessToken', res.data.signup.accessToken);
@@ -97,13 +97,15 @@ export default function SignUp() {
                         </div>
 
                         <div>
-                            <button
+                            <Button
                                 onClick={onSignUp}
-                                type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                loading={loading}
+                                htmlType="submit"
+                                type="primary"
+                                className="w-full"
                             >
                                 Đăng ký
-                            </button>
+                            </Button>
                         </div>
                     </form>
 

@@ -47,6 +47,7 @@ const User = () => {
       title: 'Ảnh đại diện',
       dataIndex: 'avatar',
       copyable: true,
+      align: 'center',
       tip: 'Tên',
       render: (_, record) => {
         return <Avatar src={record.avatar} />
@@ -55,64 +56,73 @@ const User = () => {
     {
       title: 'Kiểu tài khoản',
       dataIndex: 'type',
-      copyable: true,
-      tip: 'Tên'
-    },
-    {
-      title: 'Mã',
-      dataIndex: 'accesstoken',
-      copyable: true,
-      ellipsis: true,
+      align: 'center',
       tip: 'Tên',
+      render: () => {
+        return <div className='flex justify-center'>
+          <img className='h-6 w-6' src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png' />
+        </div>
+      }
     },
-    {
-      title: 'Ngày hết hạn',
-      dataIndex: 'expiry_date',
-      copyable: true,
-      tip: 'Tên'
-    },
+    // {
+    //   title: 'Mã',
+    //   dataIndex: 'accesstoken',
+    //   copyable: true,
+    //   ellipsis: true,
+    //   tip: 'Tên',
+    // },
+    // {
+    //   title: 'Ngày hết hạn',
+    //   dataIndex: 'expiry_date',
+    //   copyable: true,
+    //   tip: 'Tên'
+    // },
     {
       title: 'chatbot',
       dataIndex: 'bot',
+      align: 'center',
       copyable: true,
       tip: 'Tên',
       render: (_, record) => {
-        return <div>{record.bot ? <img className='h-6' src='https://cdn-icons-png.flaticon.com/512/1698/1698535.png' /> : <div>X</div>}</div>
+        return <div className='flex justify-center'>{record.bot ? <img className='h-6' src='https://cdn-icons-png.flaticon.com/512/1698/1698535.png' /> : <div>X</div>}</div>
       }
     },
     {
       title: '',
       valueType: 'option',
+      align: 'center',
       key: 'option',
-      render: (_, record) => [
-        <div key={'edit'}>
-          <DrawerComponent name='Sửa' content={<div>ádf</div>} onFinish={() => true} />
-        </div>,
-        <Button key={'delete'} type='primary' loading={record.id == loadingId ? loadingRemove : false} danger onClick={async () => {
-          setLoadingId(record.id)
-          await removeAffiliateAccountMution({
-            variables: {
-              removeAffiliateAccountId: record.id
-            }
-          })
-          await refetch()
-        }}>Xoá</Button>,
-        <Button key={'bot'} onClick={async () => {
-          await updateAffiliateAccountMution({
-            variables: {
-              "updateAffiliateAccountId": record.id,
-              "updateAffiliateAccountInput": {
-                "bot": {
-                  "set": !record.bot
+      render: (_, record) => {
+        return <div className='flex justify-center gap-3'>
+          <div key={'edit'}>
+            <DrawerComponent name='Sửa' content={<div>ádf</div>} onFinish={() => true} />
+          </div>
+          <Button key={'delete'} type='primary' loading={record.id == loadingId ? loadingRemove : false} danger onClick={async () => {
+            setLoadingId(record.id)
+            await removeAffiliateAccountMution({
+              variables: {
+                removeAffiliateAccountId: record.id
+              }
+            })
+            await refetch()
+          }}>Xoá</Button>
+          <Button key={'bot'} onClick={async () => {
+            await updateAffiliateAccountMution({
+              variables: {
+                "updateAffiliateAccountId": record.id,
+                "updateAffiliateAccountInput": {
+                  "bot": {
+                    "set": !record.bot
+                  }
                 }
               }
-            }
-          })
-          await refetch()
-        }}>
-          <img className='h-6 w-6 object-contain' src='https://cdn-icons-png.flaticon.com/512/1698/1698535.png' />
-        </Button>
-      ],
+            })
+            await refetch()
+          }}>
+            <img className='h-6 w-6 object-contain' src='https://cdn-icons-png.flaticon.com/512/1698/1698535.png' />
+          </Button>
+        </div>
+      }
     },
   ];
 

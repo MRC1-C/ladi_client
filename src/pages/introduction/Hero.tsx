@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import ScrollAnimationWrapper from "./ScrollAnimationWrapper";
 import getScrollAnimation from "./getScrollAnimation";
+import { useNavigate } from "react-router-dom";
 
 const Hero = ({
   listUser = [
@@ -23,7 +24,7 @@ const Hero = ({
   ],
 }) => {
   const scrollAnimation = useMemo(() => getScrollAnimation(), []);
-
+  const route = useNavigate()
   return (
     <div
       className="max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto"
@@ -35,17 +36,17 @@ const Hero = ({
           variants={scrollAnimation}>
           <div className=" flex flex-col justify-center items-start row-start-2 sm:row-start-1">
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 leading-normal">
-              Want anything to be easy with <strong>Penci</strong>.
+              Kinh doanh dễ dàng và hiệu quả với <strong>Penci</strong>.
             </h1>
             <p className="text-black-500 mt-4 mb-6">
-              Provide a network for all your needs with ease and fun using
-              Penci discover interesting features from us.
+              Quản lý kho, sản phẩm, hội thoại, bot chat
             </p>
             <button
+              onClick={()=>route('login')}
               className={
                 "py-3 text-white lg:py-4 px-12 lg:px-16 text-white-500 font-semibold rounded-lg bg-purple-500 hover:shadow-purple-md transition-all outline-none "
               }
-            >Get Started</button>
+            >Bắt đầu</button>
           </div>
           <div className="flex w-full">
             <motion.div className="h-full w-full" variants={scrollAnimation}>

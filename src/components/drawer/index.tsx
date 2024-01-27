@@ -29,6 +29,7 @@ const DrawerComponent = ({name, content, onFinish}: DrawerType) => {
         destroyOnClose: true,
       }}
       onFinish={onFinish}
+      
     >
       {content}
     </DrawerForm>

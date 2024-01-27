@@ -290,7 +290,7 @@ const BaseLayout = () => {
   const [pathname, setPathname] = useRecoilState(pathnameState);
   const setconversations = useSetRecoilState(conversationsState);
   const [collapsed, setCollapsed] = useState(true);
-  const {loading: loading1, error: err1, data: data1 } = useSubscription(REALTIME, {
+  const { loading: loading1, error: err1, data: data1 } = useSubscription(REALTIME, {
     variables: {
       userId: data?.me?.id
     }
@@ -340,26 +340,26 @@ const BaseLayout = () => {
               title="Penci"
               collapsed={collapsed}
               onCollapse={setCollapsed}
-              bgLayoutImgList={[
-                {
-                  src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
-                  left: 85,
-                  bottom: 100,
-                  height: '303px',
-                },
-                {
-                  src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
-                  bottom: -68,
-                  right: -45,
-                  height: '303px',
-                },
-                {
-                  src: 'https://img.alicdn.com/imgextra/i3/O1CN018NxReL1shX85Yz6Cx_!!6000000005798-2-tps-884-496.png',
-                  bottom: 0,
-                  left: 0,
-                  width: '331px',
-                },
-              ]}
+              // bgLayoutImgList={[
+              //   {
+              //     src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
+              //     left: 85,
+              //     bottom: 100,
+              //     height: '303px',
+              //   },
+              //   {
+              //     src: 'https://img.alicdn.com/imgextra/i2/O1CN01O4etvp1DvpFLKfuWq_!!6000000000279-2-tps-609-606.png',
+              //     bottom: -68,
+              //     right: -45,
+              //     height: '303px',
+              //   },
+              //   {
+              //     src: 'https://img.alicdn.com/imgextra/i3/O1CN018NxReL1shX85Yz6Cx_!!6000000005798-2-tps-884-496.png',
+              //     bottom: 0,
+              //     left: 0,
+              //     width: '331px',
+              //   },
+              // ]}
               logo="https://lh3.googleusercontent.com/a/ACg8ocJ1M5cvaqAFR3JLfrNt0sVxtoEtPFGQZV2t1iO1u1JzGQ=s360-c-no"
               {...router}
               location={{
@@ -391,7 +391,7 @@ const BaseLayout = () => {
                             onClick: () => {
                               localStorage.removeItem('accessToken');
                               navigate('/')
-                             }
+                            }
                           }
                         ],
                       }}
@@ -450,7 +450,7 @@ const BaseLayout = () => {
               menuItemRender={(item, dom) => (
                 <div
                   onClick={() => {
-                    setPathname(item.path || '/welcome');
+                    setPathname(item.path || '/');
                   }}
                 >
                   {dom}

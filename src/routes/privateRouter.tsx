@@ -1,12 +1,8 @@
 import {
-  CrownFilled, PieChartFilled, NotificationFilled, ContactsFilled, MobileFilled, WechatOutlined
+  ShopFilled, PieChartFilled, NotificationFilled, ContactsFilled, MobileFilled, WechatOutlined
 } from '@ant-design/icons';
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
-import Test11 from '../pages/Test1/Test11';
-import Test22 from '../pages/Test2/Test22';
-import Test21 from '../pages/Test2/Test21';
-import Test12 from '../pages/Test1/Test12';
 
 const SwitchIndex = ({ path }: { path: string }) => {
   const [, setPathname] = useRecoilState(pathnameState)
@@ -30,6 +26,7 @@ import Primary from '../pages/marketing/landingpage';
 import TaskOrder from '../pages/sale/task-order';
 import Chat from '../pages/chat/chat';
 import User from '../pages/chat/user';
+import Product from '../pages/warehouse/product';
 export default {
   route: {
     path: '',
@@ -37,7 +34,7 @@ export default {
     routes: [
       {
         path: 'dashboard',
-        name: 'dashboard',
+        name: 'Bảng điều khiển',
         icon: <PieChartFilled />,
         component: <Outlet />,
         routes: [
@@ -47,7 +44,7 @@ export default {
           },
           {
             path: 'analysis',
-            name: 'analysis',
+            name: 'Biểu đồ',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <Analysis />
           }
@@ -55,7 +52,7 @@ export default {
       },
       {
         path: 'marketing',
-        name: 'marketing',
+        name: 'Tiếp thị',
         icon: <NotificationFilled />,
         component: <Outlet />,
         routes: [
@@ -65,19 +62,19 @@ export default {
           },
           {
             path: 'ads',
-            name: 'ads',
+            name: 'Quảng cáo',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <Ads />
           },
           {
             path: 'ads-detail',
-            name: 'ads-detail',
+            name: 'Biểu đồ',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <AdsDetail />
           },
           {
             path: 'landingpage',
-            name: 'landingpage',
+            name: 'Landing Page',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <Primary />
           }
@@ -86,7 +83,7 @@ export default {
       },
       {
         path: 'users',
-        name: 'User',
+        name: 'Tài khoản',
         icon: <ContactsFilled />,
         component: <Outlet />,
         routes: [
@@ -96,13 +93,13 @@ export default {
           },
           {
             path: 'roles',
-            name: 'roles',
+            name: 'Quyền',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <Roles />
           },
           {
             path: 'users',
-            name: 'users',
+            name: 'Tài khoản con',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <Users />
           }
@@ -120,13 +117,13 @@ export default {
           },
           {
             path: 'list-order',
-            name: 'ListOrder',
+            name: 'Danh sách đơn hàng',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <ListOrder />
           },
           {
             path: 'task-order',
-            name: 'TaskOrder',
+            name: 'Đơn hàng',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <TaskOrder />
           },
@@ -134,7 +131,7 @@ export default {
       },
       {
         path: 'chat',
-        name: 'chat',
+        name: 'Tin nhắn',
         icon: <WechatOutlined />,
         component: <Outlet />,
         routes: [
@@ -144,63 +141,36 @@ export default {
           },
           {
             path: 'chat',
-            name: 'Chat',
+            name: 'Hội thoại',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <Chat />
           },
           {
             path: 'user',
-            name: 'User',
+            name: 'Tài khoản',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
             component: <User />
           },
         ],
       },
       {
-        path: 'test1',
-        name: 'Test1',
-        icon: <CrownFilled />,
+        path: 'warehouse',
+        name: 'Kho hàng',
+        icon: <ShopFilled />,
         component: <Outlet />,
         routes: [
           {
             path: '',
-            component: <SwitchIndex path='test11' />
+            component: <SwitchIndex path='product' />
           },
           {
-            path: 'test11',
-            name: 'Test11',
+            path: 'product',
+            name: 'Sản phẩm',
             icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
-            component: <Test11 />
-          },
-          {
-            path: 'test12',
-            name: 'Test12',
-            icon: <CrownFilled />,
-            component: <Test12 />,
+            component: <Product />
           }
         ],
-      },
-      {
-        path: 'test2',
-        name: 'Test2',
-        icon: <CrownFilled />,
-        component: <Outlet />,
-        routes: [
-          {
-            path: 'test21',
-            name: 'Test21',
-            index: true,
-            icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
-            component: <Test21 />
-          },
-          {
-            path: 'test22',
-            name: 'Test22',
-            icon: <CrownFilled />,
-            component: <Test22 />,
-          }
-        ],
-      },
+      }
     ],
   },
 };

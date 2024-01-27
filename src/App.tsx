@@ -25,11 +25,11 @@ const renderRoutes = (routes: Array<RouteItem>) => {
 const App = () => {
   return (
     <Routes>
-      <Route path='' element={<PublicLayout />}>
-        {routerPublic.route.map((r, index) => <Route index={r.index} key={index} path={r.index?undefined:r.path} element={r.component} />)}
-      </Route>
       <Route>
         {renderRoutes([router.route])}
+      </Route>
+      <Route path='' element={<PublicLayout />}>
+        {routerPublic.route.map((r, index) => <Route index={r.index} key={index} path={r.index ? undefined : r.path} element={r.component} />)}
       </Route>
     </Routes>
   )
