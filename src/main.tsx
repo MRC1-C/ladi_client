@@ -17,7 +17,7 @@ const httpLink = createHttpLink({
 
 
 const wsLink = new GraphQLWsLink(createClient({
-  url: 'ws://localhost:3000/test',
+  url: 'wss://grumpy-frogs-pump.loca.lt/test',
 }));
 
 
